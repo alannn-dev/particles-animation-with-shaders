@@ -1,3 +1,4 @@
+uniform float uSize;
 
 void main()
 {
@@ -9,5 +10,5 @@ void main()
     gl_Position = projectedPosition;
 
     // SIZE
-    gl_PointSize = 2.0; // For fixing black screen and show shaders.
+    gl_PointSize = uSize;
 }

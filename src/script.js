@@ -71,8 +71,11 @@ const generateGalaxy = () =>
         const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
         const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
 
+        // X position
         positions[i3    ] = Math.cos(branchAngle /* + spinAngle */) * radius + randomX
+        // Y position
         positions[i3 + 1] = randomY
+        // Z position
         positions[i3 + 2] = Math.sin(branchAngle /* + spinAngle */) * radius + randomZ
 
         // Color
@@ -80,8 +83,11 @@ const generateGalaxy = () =>
         // Mixed color between insideColor and outsideColor
         mixedColor.lerp(outsideColor, radius / parameters.radius)
 
+        // R
         colors[i3    ] = mixedColor.r
+        // G
         colors[i3 + 1] = mixedColor.g
+        // B
         colors[i3 + 2] = mixedColor.b
     }
 
@@ -96,7 +102,11 @@ const generateGalaxy = () =>
         blending: THREE.AdditiveBlending,
         vertexColors: true,
         vertexShader: galaxyVertexShader,
-        fragmentShader: galaxyFragmentShader
+        fragmentShader: galaxyFragmentShader,
+        uniforms: 
+        {
+            uSize: { value: 8 },
+        }
     })
 
     /**
