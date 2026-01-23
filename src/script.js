@@ -28,7 +28,7 @@ parameters.branches = 3
 parameters.randomness = 0.5
 parameters.randomnessPower = 3
 parameters.insideColor = '#ff6030'
-parameters.outsideColor = '#1b3984'
+parameters.outsideColor = '#0147f9'
 
 let geometry = null
 let material = null
@@ -114,6 +114,7 @@ const generateGalaxy = () =>
         fragmentShader: galaxyFragmentShader,
         uniforms: 
         {
+            uTime: { value: 0 },
             uSize: { value: 8 * renderer.getPixelRatio() },
         }
     })
@@ -133,8 +134,6 @@ gui.add(parameters, 'randomness').min(0).max(2).step(0.001).onFinishChange(gener
 gui.add(parameters, 'randomnessPower').min(1).max(10).step(0.001).onFinishChange(generateGalaxy)
 gui.addColor(parameters, 'insideColor').onFinishChange(generateGalaxy)
 gui.addColor(parameters, 'outsideColor').onFinishChange(generateGalaxy)
-gui.addColor(parameters, 'outsideColor').onFinishChange(generateGalaxy)
-
 
 /**
  * Sizes
@@ -194,6 +193,8 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+
+    material.uniforms.uTime.value = elapsedTime
 
     // Update controls
     controls.update()
