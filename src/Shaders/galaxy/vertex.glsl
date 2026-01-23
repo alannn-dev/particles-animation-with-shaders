@@ -1,6 +1,10 @@
+uniform float uTime;
+
 uniform float uSize;
 
 attribute float aScale;
+
+varying vec3 vColor;
 
 void main()
 {
@@ -14,4 +18,7 @@ void main()
     // SIZE * Scale for randmness size
     gl_PointSize = uSize * aScale;
     gl_PointSize *= (1.0 / - viewPosition.z);
+
+    // COLOR
+    vColor = color;
 }

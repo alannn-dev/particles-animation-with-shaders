@@ -1,3 +1,5 @@
+varying vec3 vColor;
+
 void main()
 {
     // DISC PATTERN
@@ -21,5 +23,8 @@ void main()
     // Applying power to make the edge transitions more "organic"
     strength = pow(strength, 7.0);
 
-    gl_FragColor = vec4(vec3(strength), 1.0);
+    // FINAL COLOR
+    vec3 color = mix(vec3(0.0), vColor, strength);
+
+    gl_FragColor = vec4(vec3(color), 1.0);
 }
