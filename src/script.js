@@ -54,6 +54,7 @@ const generateGalaxy = () =>
     const colors = new Float32Array(parameters.count * 3)
     // Scale for random points size
     const scales = new Float32Array(parameters.count * 1)
+    const randomness = new Float32Array(parameters.count * 3)
 
 
     const insideColor = new THREE.Color(parameters.insideColor)
@@ -70,17 +71,22 @@ const generateGalaxy = () =>
 
         const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2
 
+        // X position
+        positions[i3    ] = Math.cos(branchAngle /* + spinAngle */) * radius
+        // Y position
+        positions[i3 + 1] = 0
+        // Z position
+        positions[i3 + 2] = Math.sin(branchAngle /* + spinAngle */) * radius
+
+        //  Randomness
         const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
         const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
         const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : - 1) * parameters.randomness * radius
 
-        // X position
-        positions[i3    ] = Math.cos(branchAngle /* + spinAngle */) * radius + randomX
-        // Y position
-        positions[i3 + 1] = randomY
-        // Z position
-        positions[i3 + 2] = Math.sin(branchAngle /* + spinAngle */) * radius + randomZ
-
+        randomness[i3 + 0] = randomX
+        randomness[i3 + 1] = randomY
+        randomness[i3 + 2] = randomZ
+        
         // Color
         const mixedColor = insideColor.clone()
         // Mixed color between insideColor and outsideColor
@@ -102,7 +108,8 @@ const generateGalaxy = () =>
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
     // aScale for randomness size for points
     geometry.setAttribute('aScale', new THREE.BufferAttribute(colors, 3))
-
+    
+    geometry.setAttribute('aRandomness', new THREE.BufferAttribute(randomness, 3))
     /**
      * Material
      */
