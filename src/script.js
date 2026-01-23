@@ -52,6 +52,9 @@ const generateGalaxy = () =>
     const positions = new Float32Array(parameters.count * 3)
     //r, g, b
     const colors = new Float32Array(parameters.count * 3)
+    // Scale for random points size
+    const scales = new Float32Array(parameters.count * 1)
+
 
     const insideColor = new THREE.Color(parameters.insideColor)
     const outsideColor = new THREE.Color(parameters.outsideColor)
@@ -89,10 +92,16 @@ const generateGalaxy = () =>
         colors[i3 + 1] = mixedColor.g
         // B
         colors[i3 + 2] = mixedColor.b
+
+        // Scale for random sizes
+        scales[i] = Math.random;
+        
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+    // aScale for randomness size for points
+    geometry.setAttribute('aScale', new THREE.BufferAttribute(colors, 3))
 
     /**
      * Material
@@ -126,6 +135,8 @@ gui.add(parameters, 'randomness').min(0).max(2).step(0.001).onFinishChange(gener
 gui.add(parameters, 'randomnessPower').min(1).max(10).step(0.001).onFinishChange(generateGalaxy)
 gui.addColor(parameters, 'insideColor').onFinishChange(generateGalaxy)
 gui.addColor(parameters, 'outsideColor').onFinishChange(generateGalaxy)
+gui.addColor(parameters, 'outsideColor').onFinishChange(generateGalaxy)
+
 
 /**
  * Sizes

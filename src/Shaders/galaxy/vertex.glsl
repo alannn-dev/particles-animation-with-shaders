@@ -1,5 +1,7 @@
 uniform float uSize;
 
+attribute float aScale;
+
 void main()
 {
     // POSITION
@@ -9,6 +11,6 @@ void main()
 
     gl_Position = projectedPosition;
 
-    // SIZE
-    gl_PointSize = uSize;
+    // SIZE * Scale for randmness size
+    gl_PointSize = uSize * aScale;
 }
